@@ -25,14 +25,12 @@ class InventoryManager {
   }
 
   public addProduct(product: Product): void {
-    // Bug: ไม่ตรวจสอบว่าสินค้าซ้ำกันหรือไม่
     this.products.push(product);
   }
 
   public updateStock(productId: string, newQuantity: number): void {
     const productIndex = this.products.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
-      // Bug: ไม่ตรวจสอบว่า newQuantity เป็นจำนวนเต็มบวกหรือไม่
       this.products[productIndex].stockQuantity = newQuantity;
     }
   }
@@ -45,7 +43,6 @@ class InventoryManager {
     const taxAmount = discountedPrice * soldQuantity * this.taxRate;
     const revenue = discountedPrice * soldQuantity + taxAmount;
 
-    // Bug: ไม่ตรวจสอบว่า soldQuantity เกิน stockQuantity หรือไม่
     return revenue;
   }
 
@@ -57,7 +54,6 @@ class InventoryManager {
     const cost = product.costPrice * soldQuantity;
     const profit = discountedPrice * soldQuantity - cost;
 
-    // Bug: ไม่คำนวณภาษีในการคำนวณกำไร
     return profit;
   }
 
@@ -72,7 +68,6 @@ class InventoryManager {
   public restock(productId: string, additionalQuantity: number): void {
     const productIndex = this.products.findIndex(p => p.id === productId);
     if (productIndex !== -1) {
-      // Bug: ไม่ตรวจสอบว่า additionalQuantity เป็นจำนวนเต็มบวกหรือไม่
       this.products[productIndex].stockQuantity += additionalQuantity;
     }
   }
